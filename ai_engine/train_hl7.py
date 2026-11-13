@@ -28,16 +28,29 @@ os.makedirs(MODEL_DIR, exist_ok=True)
 def load_data():
     normal = pd.read_csv(
         os.path.join(DATA_DIR, "payload-normal.csv"),
+        usecols=["MSGTYPE", "PATIENTID"],
         low_memory=False
     )
 
     anomaly = pd.read_csv(
         os.path.join(DATA_DIR, "payload-anomaly.csv"),
+        usecols=["MSGTYPE", "PATIENTID"],
         low_memory=False
     )
 
     normal = normal.dropna(subset=["MSGTYPE", "PATIENTID"]).copy()
     anomaly = anomaly.dropna(subset=["MSGTYPE", "PATIENTID"]).copy()
+
+    # Normalize HL7 message types to match Flask input.
+    for dataset in (normal, anomaly):
+        dataset["MSGTYPE"] = (
+            dataset["MSGTYPE"]
+            .astype(str)
+            .str.strip()
+            .str.split("^")
+            .str[:2]
+            .str.join("^")
+        )
 
     normal["label"] = 0
     anomaly["label"] = 1

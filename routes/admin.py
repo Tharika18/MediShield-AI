@@ -326,16 +326,12 @@ VALID_HL7_MESSAGE_TYPES = {
     "ADT^A01",
     "ADT^A02",
     "ADT^A03",
-    "ADT^A04",
-    "ADT^A08",
-    "ORM^O01",
-    "ORU^R01",
-    "SIU^S12",
-    "SIU^S13",
-    "SIU^S14",
-    "MDM^T01",
-    "DFT^P03",
-    "ACK"
+    "ADT^A05",
+    "ADT^A13",
+    "ADT^A28",
+    "ADT^A31",
+    "ADT^A38",
+    "ADT^A40"
 }
 
 
