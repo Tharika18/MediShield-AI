@@ -1,0 +1,409 @@
+
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block pagetitle %}Admin Security Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- Dashboard Statistics -->
+<div class="row g-3 mb-4">
+
+    <div class="col-md-4 col-lg-2">
+        <div class="stat-card glass">
+            <div class="stat-label">Users</div>
+            <div class="stat-value" data-counter="{{ total_users|default(0) }}">0</div>
+            <i class="bi bi-person-badge"></i>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-lg-2">
+        <div class="stat-card glass">
+            <div class="stat-label">Patients</div>
+            <div class="stat-value" data-counter="{{ total_patients|default(0) }}">0</div>
+            <i class="bi bi-people"></i>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-lg-2">
+        <div class="stat-card glass ok">
+            <div class="stat-label">Login OK</div>
+            <div class="stat-value" data-counter="{{ successful_logins|default(0) }}">0</div>
+            <i class="bi bi-check-circle"></i>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-lg-2">
+        <div class="stat-card glass warn">
+            <div class="stat-label">Login Failed</div>
+            <div class="stat-value" data-counter="{{ failed_logins|default(0) }}">0</div>
+            <i class="bi bi-x-circle"></i>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-lg-2">
+        <div class="stat-card glass danger">
+            <div class="stat-label">Open Alerts</div>
+            <div class="stat-value" data-counter="{{ suspicious_alerts|default(0) }}">0</div>
+            <i class="bi bi-exclamation-triangle"></i>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-lg-2">
+        <div class="stat-card glass warn">
+            <div class="stat-label">Blocked</div>
+            <div class="stat-value" data-counter="{{ blocked_attempts|default(0) }}">0</div>
+            <i class="bi bi-shield-slash"></i>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Charts Section -->
+<div class="row g-3 mb-4">
+
+    <div class="col-lg-8">
+        <div class="glass card-pad">
+            <h5>
+                <i class="bi bi-graph-up"></i>
+                Login Trend (7 Days)
+            </h5>
+
+            <canvas id="trendChart" height="120"></canvas>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="glass card-pad">
+            <h5>
+                <i class="bi bi-pie-chart"></i>
+                Alerts by Type
+            </h5>
+
+            <canvas id="alertsChart" height="180"></canvas>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Recent Activity and Alerts -->
+<div class="row g-3">
+
+    <!-- Recent Activity -->
+    <div class="col-lg-7">
+        <div class="glass card-pad">
+
+            <h5>
+                <i class="bi bi-clock-history"></i>
+                Recent Activity
+            </h5>
+
+            <div class="table-responsive">
+
+                <table class="table table-dark table-sm align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Status</th>
+                            <th>When</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for l in recent_logs|default([], true) %}
+
+                        <tr>
+
+                            <td>
+                                {{ l.user.username if l.user else '—' }}
+                            </td>
+
+                            <td>
+                                <code>{{ l.action }}</code>
+                            </td>
+
+                            <td>
+                                {% if l.status == 'SUCCESS' %}
+                                    <span class="badge bg-success">
+                                        {{ l.status }}
+                                    </span>
+                                {% elif l.status == 'FAILED' %}
+                                    <span class="badge bg-danger">
+                                        {{ l.status }}
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-warning text-dark">
+                                        {{ l.status }}
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if l.timestamp %}
+                                    {{ l.timestamp.strftime('%Y-%m-%d %H:%M') }}
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </td>
+
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+                            <td colspan="4" class="text-center text-muted">
+                                No activity available.
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Recent Security Alerts -->
+    <div class="col-lg-5">
+
+        <div class="glass card-pad">
+
+            <h5>
+                <i class="bi bi-bell"></i>
+                Open Security Alerts
+            </h5>
+
+            {% for a in recent_alerts|default([], true) %}
+
+                <div class="alert-item mb-3">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <strong>{{ a.alert_type }}</strong>
+
+                        <span class="badge bg-danger">
+                            {% if a.risk_score is not none %}
+                                {{ '%.1f'|format(a.risk_score) }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </span>
+
+                    </div>
+
+                    <div class="small text-muted mt-2">
+                        {{ a.reason or 'No additional details available.' }}
+                    </div>
+
+                    <div class="small text-muted mt-1">
+                        {% if a.created_at %}
+                            {{ a.created_at.strftime('%Y-%m-%d %H:%M') }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <p class="text-muted">
+                    <i class="bi bi-shield-check"></i>
+                    No open security alerts.
+                </p>
+
+            {% endfor %}
+
+            <a href="{{ url_for('security.alerts') }}"
+               class="btn btn-outline-info btn-sm mt-2">
+
+                <i class="bi bi-arrow-right-circle"></i>
+                View All Alerts
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+<!-- Dashboard Charts -->
+{% block scripts %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Chart data from Flask
+    const labels = {{ chart_labels|default([], true)|tojson }};
+    const okData = {{ chart_ok|default([], true)|tojson }};
+    const failData = {{ chart_fail|default([], true)|tojson }};
+    const alertTypes = {{ alert_types|default([], true)|tojson }};
+
+
+    // Check whether Chart.js is loaded
+    if (typeof Chart === "undefined") {
+        console.error("Chart.js is not loaded. Check base.html.");
+        return;
+    }
+
+
+    // Login Trend Chart
+    const trendCanvas = document.getElementById("trendChart");
+
+    if (trendCanvas) {
+
+        new Chart(trendCanvas, {
+
+            type: "line",
+
+            data: {
+
+                labels: labels,
+
+                datasets: [
+
+                    {
+                        label: "Successful Logins",
+                        data: okData,
+                        borderColor: "#22d3ee",
+                        backgroundColor: "rgba(34, 211, 238, 0.15)",
+                        tension: 0.35,
+                        fill: true
+                    },
+
+                    {
+                        label: "Failed Logins",
+                        data: failData,
+                        borderColor: "#f87171",
+                        backgroundColor: "rgba(248, 113, 113, 0.15)",
+                        tension: 0.35,
+                        fill: true
+                    }
+
+                ]
+
+            },
+
+            options: {
+
+                responsive: true,
+                maintainAspectRatio: true,
+
+                plugins: {
+
+                    legend: {
+                        labels: {
+                            color: "#cbd5e1"
+                        }
+                    }
+
+                },
+
+                scales: {
+
+                    x: {
+                        ticks: {
+                            color: "#94a3b8"
+                        },
+                        grid: {
+                            color: "rgba(148, 163, 184, 0.1)"
+                        }
+                    },
+
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: "#94a3b8",
+                            precision: 0
+                        },
+                        grid: {
+                            color: "rgba(148, 163, 184, 0.1)"
+                        }
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+
+    // Alerts by Type Chart
+    const alertsCanvas = document.getElementById("alertsChart");
+
+    if (alertsCanvas) {
+
+        new Chart(alertsCanvas, {
+
+            type: "doughnut",
+
+            data: {
+
+                labels: alertTypes.map(item => item.label),
+
+                datasets: [{
+
+                    data: alertTypes.map(item => item.count),
+
+                    backgroundColor: [
+                        "#a855f7",
+                        "#6366f1",
+                        "#22d3ee",
+                        "#f59e0b",
+                        "#ef4444"
+                    ],
+
+                    borderWidth: 2,
+                    borderColor: "#111827"
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+                maintainAspectRatio: true,
+
+                plugins: {
+
+                    legend: {
+
+                        position: "bottom",
+
+                        labels: {
+                            color: "#cbd5e1",
+                            padding: 15
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

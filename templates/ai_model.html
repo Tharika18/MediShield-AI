@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}AI Model{% endblock %}
+{% block pagetitle %}AI Anomaly Detection{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="mb-4">
+        <h3>AI Model Performance</h3>
+        <p class="text-secondary">
+            Healthcare HL7 Message Anomaly Classification
+        </p>
+    </div>
+
+    {% if results %}
+
+    <div class="row g-3 mb-4">
+
+        {% for metric, value in [
+            ('Accuracy', results.accuracy),
+            ('Precision', results.precision),
+            ('Recall', results.recall),
+            ('F1 Score', results.f1_score)
+        ] %}
+
+        <div class="col-md-3">
+            <div class="glass p-4 rounded-4">
+                <h6>{{ metric }}</h6>
+                <h2>{{ (value * 100)|round(2) }}%</h2>
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="glass p-4 rounded-4 mb-4">
+        <h5>Training Information</h5>
+        <p>Algorithm: Random Forest Classifier</p>
+        <p>Purpose: {{ results.purpose }}</p>
+        <p>Features: {{ results.feature_used|join(", ") }}</p>
+        <p>Normal Records: {{ results.normal_records }}</p>
+        <p>Anomaly Records: {{ results.anomaly_records }}</p>
+        <p>Test Records: {{ results.test_records }}</p>
+        <span class="badge bg-success">Model Trained</span>
+    </div>
+
+    <div class="glass p-4 rounded-4">
+        <h5>Confusion Matrix</h5>
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr>
+                    <th>Actual / Predicted</th>
+                    <th>Normal</th>
+                    <th>Anomaly</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Normal</th>
+                    <td>{{ results.confusion_matrix[0][0] }}</td>
+                    <td>{{ results.confusion_matrix[0][1] }}</td>
+                </tr>
+                <tr>
+                    <th>Anomaly</th>
+                    <td>{{ results.confusion_matrix[1][0] }}</td>
+                    <td>{{ results.confusion_matrix[1][1] }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-warning">
+        AI model training results are not available.
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
+HTML

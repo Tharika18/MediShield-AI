@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block pagetitle %}Patient #{{ p.id }}{% endblock %}
+{% block content %}
+<div class="glass card-pad">
+  <h4>{{ p.first_name }} {{ p.last_name }}</h4>
+  <p class="text-muted">DOB: {{ p.date_of_birth }} · {{ p.gender }} · {{ p.phone or '—' }}</p>
+  {% if masked %}<div class="alert alert-warning glass-alert small">Some fields are masked for your role.</div>{% endif %}
+  <div class="row g-3">
+    <div class="col-md-6"><label>SSN</label><div class="field">{{ ssn }}</div></div>
+    <div class="col-md-6"><label>Medical History</label><div class="field">{{ history }}</div></div>
+    <div class="col-md-4"><label>Diagnosis</label><div class="field">{{ diagnosis }}</div></div>
+    <div class="col-md-4"><label>Prescriptions</label><div class="field">{{ prescriptions }}</div></div>
+    <div class="col-md-4"><label>Lab Reports</label><div class="field">{{ lab_reports }}</div></div>
+  </div>
+  <a href="{{ url_for('patients.list_patients') }}" class="btn btn-outline-info mt-3"><i class="bi bi-arrow-left"></i> Back</a>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block pagetitle %}Patients{% endblock %}
+{% block content %}
+<div class="glass card-pad mb-3">
+  <form method="GET" class="row g-2 align-items-center">
+    <div class="col-md-6">
+      <input name="q" value="{{ q }}" class="form-control" placeholder="Search by name...">
+    </div>
+    <div class="col-md-3"><button class="btn btn-glow"><i class="bi bi-search"></i> Search</button></div>
+    <div class="col-md-3 text-end">
+      {% if current_user.role.name in ['Admin','Doctor','Receptionist'] %}
+      <a href="{{ url_for('patients.new_patient') }}" class="btn btn-outline-info"><i class="bi bi-plus-circle"></i> New Patient</a>
+      {% endif %}
+    </div>
+  </form>
+</div>
+
+<div class="glass card-pad">
+  <div class="table-responsive">
+    <table class="table table-dark align-middle">
+      <thead>
+        <tr><th>ID</th><th>Name</th><th>DOB</th><th>Gender</th><th>Phone</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for p in patients %}
+        <tr>
+          <td>{{ p.id }}</td>
+          <td>{{ p.first_name }} {{ p.last_name }}</td>
+          <td>{{ p.date_of_birth }}</td>
+          <td>{{ p.gender }}</td>
+          <td>{{ p.phone or '—' }}</td>
+          <td class="text-end">
+            <a href="{{ url_for('patients.view_patient', pid=p.id) }}" class="btn btn-sm btn-outline-info">View</a>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="text-center text-muted">No patients found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <nav>
+    <ul class="pagination justify-content-center mb-0">
+      {% for i in range(1, total_pages+1) %}
+        <li class="page-item {% if i==page %}active{% endif %}">
+          <a class="page-link" href="?q={{q}}&page={{i}}">{{i}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</div>
+{% endblock %}

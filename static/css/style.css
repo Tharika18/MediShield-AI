@@ -1,0 +1,587 @@
+
+/* =====================================================
+   MEDISHIELD AI - GLOBAL THEME
+   Dark Navy | Purple | Cyan | Glassmorphism
+===================================================== */
+
+:root {
+    --bg-1: #050a1f;
+    --bg-2: #0f172a;
+    --primary: #a855f7;
+    --secondary: #6366f1;
+    --accent: #22d3ee;
+    --glass-bg: rgba(255,255,255,0.06);
+    --glass-border: rgba(255,255,255,0.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #e2e8f0;
+    background:
+        radial-gradient(1200px 800px at 10% -10%, rgba(168,85,247,0.25), transparent 60%),
+        radial-gradient(1000px 700px at 100% 10%, rgba(99,102,241,0.20), transparent 60%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2));
+    min-height: 100vh;
+}
+
+/* =====================================================
+   GLASS EFFECT
+===================================================== */
+
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+}
+
+/* =====================================================
+   APP LAYOUT
+===================================================== */
+
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    padding: 20px 14px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    transition: margin-left .25s ease;
+    flex-shrink: 0;
+}
+
+.sidebar.collapsed {
+    margin-left: -250px;
+}
+
+.main {
+    flex: 1;
+    min-width: 0;
+}
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 10px 20px;
+}
+
+.brand i {
+    color: var(--accent);
+}
+
+/* =====================================================
+   SIDEBAR NAVIGATION
+===================================================== */
+
+.sidebar .nav-link {
+    color: #cbd5e1;
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 4px;
+    transition: all .2s;
+}
+
+.sidebar .nav-link:hover {
+    background: linear-gradient(
+        90deg,
+        rgba(168,85,247,0.25),
+        rgba(99,102,241,0.15)
+    );
+    color: #fff;
+    transform: translateX(3px);
+}
+
+.sidebar .nav-link i {
+    color: var(--accent);
+}
+
+/* =====================================================
+   TOPBAR
+===================================================== */
+
+.topbar {
+    margin: 16px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.topbar .title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+
+.user-chip {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: .85rem;
+    color: #ffffff;
+}
+
+.content {
+    padding: 0 16px 24px;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: #e2e8f0;
+}
+
+.btn-ghost:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+}
+
+.btn-glow {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 18px;
+    font-weight: 500;
+    box-shadow: 0 4px 20px rgba(168,85,247,0.4);
+    transition: transform .15s, box-shadow .15s;
+}
+
+.btn-glow:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 28px rgba(168,85,247,0.6);
+    color: white;
+}
+
+/* =====================================================
+   GENERAL CARDS
+===================================================== */
+
+.card {
+    background: var(--glass-bg);
+    color: #e2e8f0;
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+}
+
+.card-pad {
+    padding: 20px;
+    margin-bottom: 0;
+}
+
+/* =====================================================
+   DASHBOARD STAT CARDS
+===================================================== */
+
+.stat-card {
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+    min-height: 110px;
+    transition: all .3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 25px rgba(34,211,238,0.15);
+}
+
+.stat-card i {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    font-size: 1.8rem;
+    opacity: .35;
+    color: var(--accent);
+}
+
+.stat-label {
+    font-size: .85rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 6px;
+}
+
+.stat-card.ok i {
+    color: #22c55e;
+}
+
+.stat-card.warn i {
+    color: #f59e0b;
+}
+
+.stat-card.danger i {
+    color: #ef4444;
+}
+
+/* =====================================================
+   FORM FIELDS
+===================================================== */
+
+.field {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--glass-border);
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-top: 4px;
+    word-break: break-word;
+}
+
+.form-control,
+.form-select {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--glass-border);
+    color: #e2e8f0;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: rgba(0,0,0,0.4);
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 .2rem rgba(34,211,238,0.25);
+}
+
+.form-control::placeholder {
+    color: #64748b;
+}
+
+.form-label {
+    color: #cbd5e1;
+}
+
+/* =====================================================
+   ALERTS
+===================================================== */
+
+.alert-item {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 10px 0;
+}
+
+.alert-item:last-child {
+    border-bottom: none;
+}
+
+.glass-alert {
+    background: rgba(255,255,255,0.08);
+    color: #e2e8f0;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+}
+
+/* =====================================================
+   GENERAL TABLE
+===================================================== */
+
+.table {
+    color: #e2e8f0;
+}
+
+.table thead th {
+    color: #94a3b8;
+    font-size: .85rem;
+    text-transform: uppercase;
+}
+
+.table > :not(caption) > * > * {
+    background: transparent !important;
+    color: inherit;
+    border-color: rgba(255,255,255,0.10);
+}
+
+.table-hover tbody tr:hover {
+    color: #ffffff;
+    background: rgba(99,102,241,0.12);
+}
+
+/* =====================================================
+   PAGINATION
+===================================================== */
+
+.pagination .page-link {
+    background: rgba(255,255,255,0.05);
+    color: #e2e8e0;
+    border-color: var(--glass-border);
+}
+
+.pagination .active .page-link {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-color: transparent;
+}
+
+/* =====================================================
+   LOGIN PAGE
+===================================================== */
+
+.login-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 32px;
+}
+
+.login-card .brand i {
+    font-size: 2.5rem;
+}
+
+/* =====================================================
+   HL7 PREDICTION HISTORY PAGE
+===================================================== */
+
+.prediction-history-page {
+    color: #e2e8f0;
+    animation: historyFadeIn .5s ease;
+}
+
+.prediction-history-page .page-heading {
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.prediction-history-page .page-description {
+    color: #94a3b8;
+}
+
+/* History summary cards */
+
+.prediction-history-page .history-stat-card {
+    background: linear-gradient(
+        135deg,
+        rgba(168,85,247,0.16),
+        rgba(99,102,241,0.16),
+        rgba(34,211,238,0.08)
+    );
+    border: 1px solid rgba(168,85,247,0.30);
+    border-radius: 16px;
+    padding: 24px;
+    color: #ffffff;
+    min-height: 145px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    transition: all .3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.prediction-history-page .history-stat-card::after {
+    content: "";
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    right: -35px;
+    bottom: -45px;
+    background: rgba(34,211,238,0.12);
+    border-radius: 50%;
+    filter: blur(8px);
+}
+
+.prediction-history-page .history-stat-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 30px rgba(34,211,238,0.18);
+}
+
+.prediction-history-page .history-stat-card .stat-label {
+    color: #b9c7df;
+    font-size: .85rem;
+}
+
+.prediction-history-page .history-stat-card .stat-number {
+    color: #ffffff;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-top: 12px;
+}
+
+/* History table container */
+
+.prediction-history-page .history-table-card {
+    background: rgba(15,23,42,0.72);
+    border: 1px solid rgba(168,85,247,0.25);
+    border-radius: 16px;
+    padding: 22px;
+    color: #e2e8f0;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.30);
+    backdrop-filter: blur(16px);
+}
+
+.prediction-history-page .history-table-title {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* History table */
+
+.prediction-history-page .table {
+    --bs-table-bg: transparent;
+    --bs-table-color: #e2e8f0;
+    --bs-table-border-color: rgba(255,255,255,0.10);
+    --bs-table-hover-bg: rgba(168,85,247,0.10);
+    --bs-table-hover-color: #ffffff;
+    color: #e2e8f0;
+    margin-bottom: 0;
+}
+
+.prediction-history-page .table thead th {
+    background: rgba(99,102,241,0.16) !important;
+    color: #67e8f9;
+    border-bottom: 1px solid rgba(34,211,238,0.30);
+    padding: 15px;
+    font-size: .78rem;
+    letter-spacing: .7px;
+    white-space: nowrap;
+}
+
+.prediction-history-page .table tbody td {
+    background: transparent !important;
+    color: #e2e8f0;
+    padding: 15px;
+    vertical-align: middle;
+    border-color: rgba(255,255,255,0.08);
+}
+
+.prediction-history-page .table tbody tr {
+    transition: all .25s ease;
+}
+
+.prediction-history-page .table tbody tr:hover td {
+    background: rgba(99,102,241,0.12) !important;
+    color: #ffffff;
+}
+
+/* Prediction badges */
+
+.prediction-history-page .badge {
+    padding: 8px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.prediction-history-page .badge.bg-success {
+    background: rgba(34,197,94,0.15) !important;
+    color: #4ade80;
+    border: 1px solid rgba(74,222,128,0.35);
+}
+
+.prediction-history-page .badge.bg-danger {
+    background: rgba(239,68,68,0.15) !important;
+    color: #f87171;
+    border: 1px solid rgba(248,113,113,0.35);
+}
+
+/* History empty state */
+
+.prediction-history-page .empty-history {
+    color: #94a3b8;
+    padding: 35px;
+}
+
+/* History animation */
+
+@keyframes historyFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        position: fixed;
+        z-index: 1000;
+    }
+
+    .sidebar.collapsed {
+        margin-left: -260px;
+    }
+
+    .topbar .title {
+        font-size: 1rem;
+    }
+
+    .user-chip {
+        display: none;
+    }
+
+    .prediction-history-page .history-stat-card {
+        padding: 18px;
+    }
+
+    .prediction-history-page .history-stat-card .stat-number {
+        font-size: 1.8rem;
+    }
+
+    .prediction-history-page .history-table-card {
+        padding: 12px;
+    }
+
+}
+/* Read-only profile fields */
+.form-control:disabled,
+.form-control[readonly] {
+    background: rgba(15, 23, 42, 0.85) !important;
+    color: #94a3b8 !important;
+    border: 1px solid rgba(34, 211, 238, 0.25) !important;
+    opacity: 1 !important;
+    cursor: not-allowed;
+    box-shadow: none !important;
+}
+
+.form-control:disabled:focus {
+    background: rgba(15, 23, 42, 0.85) !important;
+    color: #94a3b8 !important;
+    box-shadow: none !important;
+}

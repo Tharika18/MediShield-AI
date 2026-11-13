@@ -1,0 +1,405 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediShield AI | Healthcare Data Protection</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #080d1b;
+            color: #f4f7ff;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: #0d1427;
+            border-bottom: 1px solid #26334d;
+            padding: 17px 0;
+        }
+
+        .brand {
+            font-size: 23px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .brand span { color: #40d8e5; }
+
+        .nav-link { color: #c4cee2 !important; }
+        .nav-link:hover { color: #40d8e5 !important; }
+
+        .login-btn, .main-btn {
+            background: linear-gradient(110deg, #536dfe, #13bfd5);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 9px;
+            text-decoration: none;
+            border: 0;
+            font-weight: bold;
+        }
+
+        .hero {
+            min-height: 620px;
+            display: flex;
+            align-items: center;
+            padding: 75px 0;
+            background: radial-gradient(circle at 80% 35%, #172c55, #080d1b 55%);
+        }
+
+        .tag {
+            color: #42dce8;
+            border: 1px solid #246b85;
+            background: #10263a;
+            border-radius: 30px;
+            padding: 9px 16px;
+            display: inline-block;
+            margin-bottom: 22px;
+        }
+
+        h1 {
+            font-size: clamp(38px, 5vw, 62px);
+            line-height: 1.15;
+            font-weight: 800;
+        }
+
+       h1 span {
+    background: linear-gradient(90deg, #6e8cff, #40dce5);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+        .hero p {
+            color: #b0bdd2;
+            font-size: 17px;
+            line-height: 1.8;
+            margin: 22px 0 30px;
+        }
+
+        .visual {
+            min-height: 360px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .shield {
+            width: 230px;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 115px;
+            color: #49dce9;
+            border: 2px solid #287e9b;
+            border-radius: 45% 45% 50% 50%;
+            background: #102844;
+            box-shadow: 0 0 65px #147caa55;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            50% { transform: translateY(-15px); }
+        }
+
+        .floating {
+            position: absolute;
+            padding: 15px;
+            background: #172642;
+            border: 1px solid #354b70;
+            border-radius: 12px;
+            color: #e9f3ff;
+        }
+
+        .floating i { color: #45dce5; }
+        .f1 { top: 35px; right: 0; }
+        .f2 { bottom: 35px; left: 0; }
+
+        .section { padding: 80px 0; }
+
+        .section-title {
+            font-size: 35px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .section-desc {
+            text-align: center;
+            color: #aab8d1;
+            margin-bottom: 45px;
+        }
+
+        .feature-card {
+            height: 100%;
+            padding: 28px;
+            border-radius: 16px;
+            background: #111d33;
+            border: 1px solid #293c5d;
+            transition: .3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #42dce5;
+            box-shadow: 0 10px 35px #1688aa30;
+        }
+
+        .feature-icon {
+            font-size: 35px;
+            color: #42dce5;
+            margin-bottom: 18px;
+        }
+
+        .feature-card p, .about-text {
+            color: #aab8d1;
+            line-height: 1.8;
+        }
+
+        .about-box {
+            background: #111d33;
+            border: 1px solid #293c5d;
+            border-radius: 18px;
+            padding: 35px;
+        }
+
+        .footer {
+            background: #0d1427;
+            border-top: 1px solid #293c5d;
+            padding: 25px 0;
+            color: #9aa9c2;
+            text-align: center;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        @media(max-width: 768px) {
+            .hero { text-align: center; }
+            .visual { margin-top: 40px; }
+            .floating { font-size: 12px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand brand" href="#">
+            <i class="bi bi-shield-lock-fill"></i>
+            MediShield <span>AI</span>
+        </a>
+
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                <li class="nav-item"><a class="nav-link" href="#workflow">How It Works</a></li>
+                <li class="nav-item">
+                    <a class="login-btn" href="{{ url_for('auth.login') }}">
+                        Staff Login <i class="bi bi-arrow-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <span class="tag">
+                    <i class="bi bi-shield-check"></i>
+                    AI-Powered Healthcare Security
+                </span>
+
+                <h1>
+                    Protect Healthcare Data With
+                    <span>Intelligent Security.</span>
+                </h1>
+
+                <p>
+                    MediShield AI is an intelligent healthcare data privacy
+                    and unauthorized access detection system. It combines
+                    data encryption, role-based access control and AI-based
+                    suspicious activity detection.
+                </p>
+
+                <a href="{{ url_for('auth.login') }}" class="main-btn">
+                    Staff Login <i class="bi bi-arrow-right"></i>
+                </a>
+
+                <a href="#about" class="btn btn-outline-light ms-2 p-3">
+                    Explore
+                </a>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="visual">
+                    <div class="shield">
+                        <i class="bi bi-shield-lock-fill"></i>
+                    </div>
+
+                    <div class="floating f1">
+                        <i class="bi bi-lock-fill"></i> Data Encryption
+                    </div>
+
+                    <div class="floating f2">
+                        <i class="bi bi-activity"></i> AI Threat Detection
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="about">
+    <div class="container">
+        <h2 class="section-title">About MediShield AI</h2>
+        <p class="section-desc">
+            A smarter approach to healthcare information security.
+        </p>
+
+        <div class="about-box">
+            <p class="about-text mb-0">
+                Healthcare information contains sensitive patient details
+                that must be protected from unauthorized access.
+                MediShield AI provides a security-focused platform that
+                encrypts sensitive patient information, controls access
+                according to staff roles, records access activities and
+                identifies potentially suspicious behaviour using
+                machine learning. The system uses synthetic demonstration
+                data for testing and evaluation.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="features">
+    <div class="container">
+        <h2 class="section-title">Core Security Features</h2>
+        <p class="section-desc">
+            Multiple layers of protection for sensitive healthcare data.
+        </p>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-lock-fill"></i></div>
+                    <h5>Data Encryption</h5>
+                    <p>Protect sensitive patient information using encryption.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-person-lock"></i></div>
+                    <h5>Role-Based Access</h5>
+                    <p>Control access permissions for different healthcare staff roles.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-robot"></i></div>
+                    <h5>AI Detection</h5>
+                    <p>Identify unusual access patterns using machine learning.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-journal-text"></i></div>
+                    <h5>Audit Logs</h5>
+                    <p>Maintain records of user access and system activities.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-bell-fill"></i></div>
+                    <h5>Security Alerts</h5>
+                    <p>Display alerts when potentially suspicious activities are detected.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-bar-chart-fill"></i></div>
+                    <h5>Security Dashboard</h5>
+                    <p>View access activity, alerts and security information.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="workflow">
+    <div class="container">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-desc">A simple security workflow.</p>
+
+        <div class="row g-4 text-center">
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <h2 class="feature-icon">01</h2>
+                    <h5>User Login</h5>
+                    <p>Authorized staff sign in to the platform.</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <h2 class="feature-icon">02</h2>
+                    <h5>Access Control</h5>
+                    <p>Permissions are checked according to the user's role.</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <h2 class="feature-icon">03</h2>
+                    <h5>Activity Analysis</h5>
+                    <p>System activity is recorded and analysed for anomalies.</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <h2 class="feature-icon">04</h2>
+                    <h5>Security Alerts</h5>
+                    <p>Potentially suspicious activity is shown for review.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer" id="contact">
+    <div class="container">
+        <h5 class="text-white">MediShield AI</h5>
+        <p class="mb-1">Intelligent Healthcare Data Privacy and Security</p>
+        <small>Academic Project | AI-Powered Healthcare Security</small>
+        <p class="mt-3 mb-0">&copy; 2026 MediShield AI. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

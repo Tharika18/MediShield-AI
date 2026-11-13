@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block pagetitle %}Security Alerts{% endblock %}
+{% block content %}
+<div class="glass card-pad">
+  <div class="table-responsive">
+    <table class="table table-dark align-middle">
+      <thead><tr><th>Time</th><th>User</th><th>Type</th><th>Risk</th><th>Reason</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        {% for a in alerts %}
+        <tr>
+          <td>{{ a.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+          <td>{{ a.user.username if a.user else '—' }}</td>
+          <td><span class="badge bg-danger">{{ a.alert_type }}</span></td>
+          <td>{{ '%.1f'|format(a.risk_score) }}</td>
+          <td class="small">{{ a.reason }}</td>
+          <td>{{ 'Resolved' if a.is_resolved else 'Open' }}</td>
+          <td class="text-end">
+            {% if not a.is_resolved %}
+            <form method="POST" action="{{ url_for('security.resolve_alert', aid=a.id) }}" class="d-inline">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button class="btn btn-sm btn-outline-success">Resolve</button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7" class="text-center text-muted">No alerts.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

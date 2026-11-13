@@ -1,0 +1,8 @@
+.env
+venv/
+__pycache__/
+*.pyc
+
+# Excluded backup and duplicate files
+*.save
+/datasets/emr/archive.zip
